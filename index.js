@@ -105,7 +105,7 @@ const displayNews = (displayCard, sort) => {
         newsCardDiv.innerHTML = `
         <div class="card card-compact  ">
                 <figure class="relative"><img class="w-72 h-48 rounded-lg mb-3" src="${newsCard.thumbnail ? newsCard.thumbnail : 'not found'}" alt="Shoes" />
-                <p class="absolute bottom-4 right-2 bg-gray-600 text-white rounded-sm text-xs">
+                <p class="absolute bottom-4 right-2 bg-gray-800 text-white rounded-sm text-xs ">
                 ${convertSecToTime(newsCard.others.posted_date ? newsCard.others.posted_date : "")}
                 </p>
                 
@@ -116,7 +116,7 @@ const displayNews = (displayCard, sort) => {
                  <div>
                  <h2 class="text-xl font-semibold">${newsCard.title}</h2>
                  <div class='flex gap-4'><p class="text-slate-400">${newsCard.authors[0].profile_name}</p>
-                 <i>${newsCard.authors[0].verified ? '<span class="verified-symbol"><i class="fa-solid fa-certificate text-sky-500 fa-xs"></i></span>' : ''} </i>
+                 <i class="relative">${newsCard.authors[0].verified ? '<span class="verified-symbol"><i class="fa-solid fa-certificate text-sky-500 fa-lg"></i><i class="fa-solid fa-check text-white absolute fa-xs top-3 right-2 left-1 "></i></span>' : ''} </i>
                  </div>
                  <p class="text-slate-400 text-xs">${newsCard.others.views} views</p>
                  </div> </div>  
