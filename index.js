@@ -9,23 +9,49 @@ const loadAllCategory = async () => {
         console.error(error);
     }
 }
-
 const setCategory = async (sort) => {
     const data = await loadAllCategory();
     const categoryUl = document.getElementById('all-category');
-    for (const category of data) {
-        // console.log(category);
+    let activeButton = null;
+
+    const handleButtonClick = (event, categoryId) => {
+
+        if (activeButton) {
+            activeButton.classList.remove('active', 'bg-[#FF1F3D]', 'text-white');
+        }
+
+        event.target.classList.add('active', 'bg-[#FF1F3D]', 'text-white');
+        activeButton = event.target;
+
+        loadUrl(categoryId);
+        sortBtn(categoryId);
+    };
+
+    for (let i = 0; i < data.length; i++) {
+        const category = data[i];
         const li = document.createElement('li');
-        li.innerHTML = `
-        <li onclick="loadUrl('${category.category_id}');sortBtn('${category.category_id}')" class="btn mt-5 normal-case ">${category.category}</li>
-        `
+        const button = document.createElement('button');
+
+        button.textContent = category.category;
+        button.className = 'btn mt-5 normal-case lg:w-32 md:w-24 w-16 category-button hover:text-black';
+
+        button.addEventListener('click', (event) => {
+            handleButtonClick(event, category.category_id);
+        });
+
+        li.appendChild(button);
         categoryUl.appendChild(li);
 
-
+        if (i === 0) {
+            button.classList.add('active','bg-[#FF1F3D]','text-white');
+            activeButton = button;
+        }
     }
+};
 
-}
-setCategory()
+setCategory();
+
+
 
 const loadUrl = async (idURL, sort = false) => {
 
@@ -55,7 +81,7 @@ const convertSecToTime = seconds => {
 };
 
 const displayNews = (displayCard, sort) => {
- 
+
     spinner.classList.add('hidden');
     const cardDetails = document.getElementById('card-container');
     const notFound = document.getElementById('not-found')
@@ -90,7 +116,7 @@ const displayNews = (displayCard, sort) => {
                  <div>
                  <h2 class="text-xl font-semibold">${newsCard.title}</h2>
                  <div class='flex gap-4'><p class="text-slate-400">${newsCard.authors[0].profile_name}</p>
-                 <i>${newsCard.authors[0].verified ? '<span class="verified-symbol"><i class="fa-solid fa-certificate text-sky-400"></i></span>' : ''} </i>
+                 <i>${newsCard.authors[0].verified ? '<span class="verified-symbol"><i class="fa-solid fa-certificate text-sky-500 fa-xs"></i></span>' : ''} </i>
                  </div>
                  <p class="text-slate-400 text-xs">${newsCard.others.views} views</p>
                  </div> </div>  
