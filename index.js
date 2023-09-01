@@ -29,15 +29,18 @@ setCategory()
 const loadUrl = async (idURL) => {
 
     const spinner = document.getElementById('spinner');
+    spinner.classList.remove('hidden');
     const url = ` https://openapi.programming-hero.com/api/videos/category/${idURL}`;
     const response = await fetch(url);
     const loadImg = await response.json();
+
     displayNews(loadImg.data);
-    //
-    console.log(loadImg.data);
+    
+
 }
 
-const secondsToTime = seconds => {
+
+const convertSecToTime = seconds => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
 
@@ -51,6 +54,8 @@ const secondsToTime = seconds => {
 };
 
 const displayNews = (displayCard) => {
+   
+    spinner.classList.add('hidden');
     const cardDetails = document.getElementById('card-container');
     const notFound = document.getElementById('not-found')
     cardDetails.textContent = "";
@@ -62,18 +67,18 @@ const displayNews = (displayCard) => {
         <h2 class="mt-5 p-5 text-2xl font-semibold text-black text-center">Oops!! Sorry, There is no <br> content here.</h2>`
         return;
     }
-
-
+    // displayCard.sort((a, b) => {
+    //     const c = a.others.views.slice(0, 3)
+    //     const d = b.others.views.slice(0, 3)
+    //     return d - c;
+    // });
     displayCard.forEach(newsCard => {
-        console.log(newsCard
-        );
         const newsCardDiv = document.createElement('div');
-        // newsCardDiv.classList.add('');
         newsCardDiv.innerHTML = `
         <div class="card card-compact  ">
                 <figure class="relative"><img class="w-72 h-48 rounded-lg mb-3" src="${newsCard.thumbnail ? newsCard.thumbnail : 'not found'}" alt="Shoes" />
                 <p class="absolute bottom-4 right-2 bg-gray-600 text-white rounded-sm text-xs">
-                ${secondsToTime(newsCard.others.posted_date ? newsCard.others.posted_date : "")}
+                ${convertSecToTime(newsCard.others.posted_date ? newsCard.others.posted_date : "")}
                 </p>
                 
                 </figure>
@@ -87,18 +92,18 @@ const displayNews = (displayCard) => {
                  </div>
                  <p class="text-slate-400 text-xs">${newsCard.others.views} views</p>
                  </div> </div>  
-
-
-
-
-                </div>
-                
-             
-                       
-            
+                </div>     
             </div>
         `
         cardDetails.appendChild(newsCardDiv)
+
     });
+
 }
-loadAllCategory()
+
+// const sortButton=document.getElementById('sort-btn').addEventListener('click',function(){
+
+    
+// })
+
+loadUrl('1000');
