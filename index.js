@@ -10,23 +10,24 @@ const loadAllCategory = async () => {
     }
 }
 
-const setCategory = async () => {
+const setCategory = async (sort) => {
     const data = await loadAllCategory();
     const categoryUl = document.getElementById('all-category');
     for (const category of data) {
         // console.log(category);
         const li = document.createElement('li');
         li.innerHTML = `
-        <li onclick="loadUrl('${category.category_id}')" class="btn mt-5 normal-case ">${category.category}</li>
+        <li onclick="loadUrl('${category.category_id}');sortBtn('${category.category_id}')" class="btn mt-5 normal-case ">${category.category}</li>
         `
         categoryUl.appendChild(li);
 
 
     }
+
 }
 setCategory()
 
-const loadUrl = async (idURL) => {
+const loadUrl = async (idURL, sort = false) => {
 
     const spinner = document.getElementById('spinner');
     spinner.classList.remove('hidden');
@@ -34,8 +35,8 @@ const loadUrl = async (idURL) => {
     const response = await fetch(url);
     const loadImg = await response.json();
 
-    displayNews(loadImg.data);
-    
+    displayNews(loadImg.data, sort);
+
 
 }
 
@@ -53,8 +54,8 @@ const convertSecToTime = seconds => {
 
 };
 
-const displayNews = (displayCard) => {
-   
+const displayNews = (displayCard, sort) => {
+ 
     spinner.classList.add('hidden');
     const cardDetails = document.getElementById('card-container');
     const notFound = document.getElementById('not-found')
@@ -67,11 +68,12 @@ const displayNews = (displayCard) => {
         <h2 class="mt-5 p-5 text-2xl font-semibold text-black text-center">Oops!! Sorry, There is no <br> content here.</h2>`
         return;
     }
-    // displayCard.sort((a, b) => {
-    //     const c = a.others.views.slice(0, 3)
-    //     const d = b.others.views.slice(0, 3)
-    //     return d - c;
-    // });
+
+    if (sort == true) {
+        displayCard.sort((a, b) => {
+            return parseFloat(b.others.views) - parseFloat(a.others.views);
+        });
+    }
     displayCard.forEach(newsCard => {
         const newsCardDiv = document.createElement('div');
         newsCardDiv.innerHTML = `
@@ -101,9 +103,13 @@ const displayNews = (displayCard) => {
 
 }
 
-// const sortButton=document.getElementById('sort-btn').addEventListener('click',function(){
+const sortBtn = id => {
+    const btnContainer = document.getElementById('sort-btn');
+    btnContainer.textContent = '';
+    btnContainer.innerHTML = `
+    <button  onclick="loadUrl('${id}',true)"  class="btn btn-sm md:btn-md bg-gray-300 rounded hover:bg-[#FF1F3D] text-black hover:text-white text-base  md:text-lg normal-case">Sort by view</button>
+    `
 
-    
-// })
+}
 
 loadUrl('1000');
