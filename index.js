@@ -33,7 +33,7 @@ const setCategory = async (sort) => {
         const button = document.createElement('button');
 
         button.textContent = category.category;
-        button.className = 'btn mt-5 normal-case lg:w-32 md:w-24 w-16 category-button  hover:text-black bg-gray-300';
+        button.className = 'btn  mt-5 normal-case lg:w-32 md:w-24 w-16  rounded hover:text-black bg-gray-300 ';
 
         button.addEventListener('click', (event) => {
             handleButtonClick(event, category.category_id);
