@@ -105,7 +105,7 @@ const displayNews = (displayCard, sort) => {
         newsCardDiv.innerHTML = `
         <div class="card card-compact  ">
                 <figure class="relative"><img class="w-72 h-48 rounded-lg mb-3" src="${newsCard.thumbnail ? newsCard.thumbnail : 'not found'}" alt="Shoes" />
-                <p class="absolute bottom-4 right-2 bg-gray-800 text-white rounded-sm text-xs ">
+                <p class="w-32 text-center absolute bottom-4 md:right-2 right-14 bg-black  text-white rounded-sm text-xs ">
                 ${convertSecToTime(newsCard.others.posted_date ? newsCard.others.posted_date : "")}
                 </p>
                 
