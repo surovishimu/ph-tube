@@ -33,7 +33,7 @@ const setCategory = async (sort) => {
         const button = document.createElement('button');
 
         button.textContent = category.category;
-        button.className = 'btn mt-5 normal-case lg:w-32 md:w-24 w-16 category-button hover:text-black';
+        button.className = 'btn mt-5 normal-case lg:w-32 md:w-24 w-16 category-button  hover:text-black bg-gray-300';
 
         button.addEventListener('click', (event) => {
             handleButtonClick(event, category.category_id);
@@ -43,7 +43,7 @@ const setCategory = async (sort) => {
         categoryUl.appendChild(li);
 
         if (i === 0) {
-            button.classList.add('active','bg-[#FF1F3D]','text-white');
+            button.classList.add('active', 'bg-[#FF1F3D]', 'text-white');
             activeButton = button;
         }
     }
@@ -110,8 +110,8 @@ const displayNews = (displayCard, sort) => {
                 </p>
                 
                 </figure>
-                <div class=" flex lg:justify-start justify-center px-2 gap-4 ">
-                 <div class=""><img class="w-12 h-12 rounded-full" src="${newsCard.authors[0].profile_picture ? newsCard.authors[0].profile_picture : 'not found'}" alt="Shoes" /></div>
+                <div class=" flex lg:justify-start justify-center items-center px-2 gap-4 ">
+                 <div class=""><img class="w-12 h-12 rounded-full " src="${newsCard.authors[0].profile_picture ? newsCard.authors[0].profile_picture : 'not found'}" alt="Shoes" /></div>
                  <div>
                  <div>
                  <h2 class="text-xl font-semibold">${newsCard.title}</h2>
